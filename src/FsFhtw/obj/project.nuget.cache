@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lMPP2BbE6V7xaGjZ6HNJDqv8mMqqzZvS1HKbPdoEUpio4VoHYko+pJVI+LDHi2R4SRq7obP0ift577PUrnVlLA==",
+  "success": true,
+  "projectFilePath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/FsFhtw.fsproj",
+  "expectedPackageFiles": [
+    "/Users/alex/.nuget/packages/fsharp.core/5.0.0/fsharp.core.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

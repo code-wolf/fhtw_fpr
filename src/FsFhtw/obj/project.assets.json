@@ -95,11 +95,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/FsFhtw.fsproj",
+      "projectUniqueName": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/FsFhtw.fsproj",
       "projectName": "FsFhtw",
-      "projectPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/FsFhtw.fsproj",
+      "projectPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/FsFhtw.fsproj",
       "packagesPath": "/Users/alex/.nuget/packages/",
-      "outputPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/obj/",
+      "outputPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -146,7 +146,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
       }
     }
   }

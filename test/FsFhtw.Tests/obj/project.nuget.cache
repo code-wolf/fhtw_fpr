@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oKtLPoWHM+zRVD29mStcXEZ8w2Mi2pOvHvy8S5CAVtdsZOrZWs4/jP97Bs/xE+mbnmGmlFTZ52J+OKV9VuvlFQ==",
+  "dgSpecHash": "mg1n/t5VOVzRuRUIdbohgzOQso/LXFrRQ6mGV2bN0tUNf4jnNx7+cRezuPyoJe3VqPy3t32693acBElLd1kqnw==",
   "success": true,
-  "projectFilePath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/test/FsFhtw.Tests/FsFhtw.Tests.fsproj",
+  "projectFilePath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/test/FsFhtw.Tests/FsFhtw.Tests.fsproj",
   "expectedPackageFiles": [
     "/Users/alex/.nuget/packages/fscheck/2.14.0/fscheck.2.14.0.nupkg.sha512",
     "/Users/alex/.nuget/packages/fsharp.core/5.0.0/fsharp.core.5.0.0.nupkg.sha512",

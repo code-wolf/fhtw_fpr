@@ -2,6 +2,8 @@ module Domain
 
 type State = int
 type Price = decimal
+type Error =
+    | InvalidItinerary of string
 
 type Station =
     | Wien
@@ -13,16 +15,17 @@ type Station =
 type Itinerary = (Station*Station)
 
 type TicketType =
-    | SingleTrip
+    | SingleTrip of Itinerary
     | Day
     | Week
     | Month
     | Year
 
+
 type Ticket =
     { Type : TicketType
-      Route : Itinerary
-      TicketPrice : Price}
+      Route : Option<Itinerary>
+      TicketPrice : Option<Price>}
 
 type PaymentMethod =
     | Cash
@@ -35,6 +38,7 @@ type Message =
     | DecrementBy of int
     | TripCost of decimal
 
+type Cart = Ticket list
 
 let rec calculateTripCost (x : Itinerary) (r : bool) : Option<Price> =
     match x with
@@ -48,7 +52,6 @@ let rec calculateTripCost (x : Itinerary) (r : bool) : Option<Price> =
             then calculateTripCost (snd(x), fst(x)) false
             else None
 
-
 let priceString i =
         match i with
         | (Some x, Some y) ->
@@ -59,7 +62,20 @@ let priceString i =
         | (Some x, None) -> "Unable to find Station with name " + snd(i).ToString()
         | _ -> "None stations found"
 
+let ticketPrice (x : TicketType) =
+    match x with
+    | SingleTrip(i) -> calculateTripCost i true
+    | Day -> Some 20.0m
+    | Week -> Some 50.0m
+    | Month -> Some 70.0m
+    | Year -> Some 365.0m
 
+let ticket (x : TicketType) : Option<Ticket> =
+    let price = ticketPrice x
+
+    match x with
+    | SingleTrip s ->Some { Type=x; Route = Some s; TicketPrice = price }
+    | _ -> Some { Type = x; Route = None; TicketPrice = price }
 
 let init () : State =
     0

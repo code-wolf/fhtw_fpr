@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/test/FsFhtw.Tests/FsFhtw.Tests.fsproj": {}
+    "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/test/FsFhtw.Tests/FsFhtw.Tests.fsproj": {}
   },
   "projects": {
-    "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/FsFhtw.fsproj": {
+    "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/FsFhtw.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/FsFhtw.fsproj",
+        "projectUniqueName": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/FsFhtw.fsproj",
         "projectName": "FsFhtw",
-        "projectPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/FsFhtw.fsproj",
+        "projectPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/FsFhtw.fsproj",
         "packagesPath": "/Users/alex/.nuget/packages/",
-        "outputPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/obj/",
+        "outputPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -58,18 +58,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/test/FsFhtw.Tests/FsFhtw.Tests.fsproj": {
+    "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/test/FsFhtw.Tests/FsFhtw.Tests.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/test/FsFhtw.Tests/FsFhtw.Tests.fsproj",
+        "projectUniqueName": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/test/FsFhtw.Tests/FsFhtw.Tests.fsproj",
         "projectName": "FsFhtw.Tests",
-        "projectPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/test/FsFhtw.Tests/FsFhtw.Tests.fsproj",
+        "projectPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/test/FsFhtw.Tests/FsFhtw.Tests.fsproj",
         "packagesPath": "/Users/alex/.nuget/packages/",
-        "outputPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/test/FsFhtw.Tests/obj/",
+        "outputPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/test/FsFhtw.Tests/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -88,8 +88,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/FsFhtw.fsproj": {
-                "projectPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/WashingMachine_fsharp/src/FsFhtw/FsFhtw.fsproj"
+              "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/FsFhtw.fsproj": {
+                "projectPath": "/Users/alex/Documents/FH/1. Semester/FPR-Functional Programming/Projekt/TicketVendingMachine/src/FsFhtw/FsFhtw.fsproj"
               }
             }
           }
@@ -142,7 +142,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
         }
       }
     }

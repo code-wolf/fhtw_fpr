@@ -16,3 +16,12 @@ Calculates the costs for a trip.
 `TripCost [fromStation] [toStation]`
 ### Example
 `TripCost Wien Zurich`
+
+## Book
+Books a single ticket
+
+### Synopsis
+`Book [fromStation] [toStation]`
+### Example
+`Book Graz Innsbruck`
+

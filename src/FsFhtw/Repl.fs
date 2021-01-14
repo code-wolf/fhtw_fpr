@@ -4,21 +4,18 @@ open System
 open Parser
 
 type Message =
-    | DomainMessage of Domain.Message
     | HelpRequested
     | NotParsable of string
-    | CalculateTripCost of (Option<Domain.Station>*Option<Domain.Station>)
+    | CalculateTripCost of Domain.Itinerary
+    | BookMessage of Domain.Itinerary
 
 
-type State = Domain.State
+type State = Domain.Cart
 
 let read (input : string) =
     match input with
-    | Increment -> Domain.Increment |> DomainMessage
-    | Decrement -> Domain.Decrement |> DomainMessage
-    | IncrementBy v -> Domain.IncrementBy v |> DomainMessage
-    | DecrementBy v -> Domain.DecrementBy v |> DomainMessage
     | TripCost (x,y) -> CalculateTripCost (x,y)
+    | Book (x,y) -> BookMessage (x,y)
     | Help -> HelpRequested
     | ParseFailed  -> NotParsable input
 
@@ -30,33 +27,46 @@ let createHelpText () : string =
     |> Array.fold (fun prev curr -> prev + " " + curr) ""
     |> (fun s -> s.Trim() |> sprintf "Known commands are: %s")
 
-let evaluate (update : Domain.Message -> State -> State) (state : State) (msg : Message) =
+
+let evaluate (state : State) (msg : Message) =
     match msg with
-    | DomainMessage msg ->
-        let newState = update msg state
-        let message = sprintf "The message was %A. New state is %A" msg newState
-        (newState, message)
     | HelpRequested ->
         let message = createHelpText ()
         (state, message)
     | CalculateTripCost i ->
         let priceString = Domain.priceString i
-        (0, priceString)
-        
+        (state, priceString)
+    | BookMessage x ->
+        let newState = Domain.Book x state
+        (newState, "Booking completed")
     | NotParsable originalInput ->
         let message =
             sprintf """"%s" was not parsable. %s"""  originalInput "You can get information about known commands by typing \"Help\""
         (state, message)
 
+let rec printCart (x : Domain.Ticket list) =
+    match x with
+    | x::xs ->
+        printf "%A" x.Type
+        printCart xs
+    | [] -> ()
+
+
 let print (state : State, outputToPrint : string) =
     printfn "%s\n" outputToPrint
+
+    let str = List.fold(fun (acc : string) (elem : Domain.Ticket) -> acc + Domain.TicketTypeText elem.Type) "" state.items
+
+    printf "%s\n" str
+
     printf "> "
 
     state
 
+
 let rec loop (state : State) =
     Console.ReadLine()
     |> read
-    |> evaluate Domain.update state
+    |> evaluate state
     |> print
     |> loop

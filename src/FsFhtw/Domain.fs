@@ -1,6 +1,6 @@
 module Domain
 
-type State = int
+
 type Price = decimal
 type Error =
     | InvalidItinerary of string
@@ -21,10 +21,17 @@ type TicketType =
     | Month
     | Year
 
+let TicketTypeText (t : TicketType) : string =
+    match t with
+    | SingleTrip x -> "Einzelfahrt: " + fst(x).ToString() + "-" + snd(x).ToString()
+    | Day -> "24 Stunden Karte"
+    | Week -> "Wochenkarte"
+    | Month -> "Monatskarte"
+    | Year -> "Jahreskarte"
+
 
 type Ticket =
     { Type : TicketType
-      Route : Option<Itinerary>
       TicketPrice : Option<Price>}
 
 type PaymentMethod =
@@ -32,13 +39,10 @@ type PaymentMethod =
     | CreditCard
 
 type Message =
-    | Increment
-    | Decrement
-    | IncrementBy of int
-    | DecrementBy of int
-    | TripCost of decimal
+    | TripCost of string
+    | Book
 
-type Cart = Ticket list
+type Cart = { items : Ticket list }
 
 let rec calculateTripCost (x : Itinerary) (r : bool) : Option<Price> =
     match x with
@@ -52,15 +56,10 @@ let rec calculateTripCost (x : Itinerary) (r : bool) : Option<Price> =
             then calculateTripCost (snd(x), fst(x)) false
             else None
 
-let priceString i =
-        match i with
-        | (Some x, Some y) ->
-            match calculateTripCost (x,y) true with
-            | Some p -> p.ToString() + "€"
-            | None -> "Unable to find price for trip from " + x.ToString() + " to " + y.ToString()
-        | (None, Some y) -> "Unable to find Station with name " + fst(i).ToString()
-        | (Some x, None) -> "Unable to find Station with name " + snd(i).ToString()
-        | _ -> "None stations found"
+let priceString (i : Itinerary) =
+    match calculateTripCost i true with
+    | Some p -> p.ToString() + "€"
+    | None -> "Unable to find price for trip from " + fst(i).ToString() + " to " + snd(i).ToString()
 
 let ticketPrice (x : TicketType) =
     match x with
@@ -70,20 +69,25 @@ let ticketPrice (x : TicketType) =
     | Month -> Some 70.0m
     | Year -> Some 365.0m
 
-let ticket (x : TicketType) : Option<Ticket> =
+let createTicket (x : TicketType) : Option<Ticket> =
     let price = ticketPrice x
 
     match x with
-    | SingleTrip s ->Some { Type=x; Route = Some s; TicketPrice = price }
-    | _ -> Some { Type = x; Route = None; TicketPrice = price }
+    | SingleTrip s ->Some { Type=x; TicketPrice = price }
+    | _ -> Some { Type = x; TicketPrice = price }
 
-let init () : State =
-    0
+let Book (x : Itinerary) state : Cart =
+    let ticket = createTicket (SingleTrip x)
+    match ticket with
+    | Some s -> { items = s :: state.items }
+    | None -> state
 
-let update (msg : Message) (model : State) : State =
-    match msg with
-    | Increment -> model + 1
-    | Decrement -> model - 1
-    | IncrementBy x -> model + x
-    | DecrementBy x -> model - x
-    | TripCost x -> model
+let rec printCart items =
+    match items with
+    | x::xs ->
+        printf "%A" x.Type
+        printCart xs
+    | [] -> []
+
+let init () : Cart =
+    { items = [] }

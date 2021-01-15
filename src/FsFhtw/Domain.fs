@@ -52,6 +52,7 @@ let rec calculateTripCost (x : Itinerary) (r : bool) : Option<Price> =
     | (fromStation, toStation) when fromStation = Graz && toStation = Linz -> Some(30m)
     | (fromStation, toStation) when fromStation = Graz && toStation = Innsbruck -> Some(60m)
     | (fromStation, toStation) when fromStation = Linz && toStation = Innsbruck -> Some(55m)
+    | (fromStation, toStation) when fromStation = Zurich && toStation = Wien -> Some(180m)
     | _ -> if r
             then calculateTripCost (snd(x), fst(x)) false
             else None

@@ -8,6 +8,7 @@ type Message =
     | NotParsable of string
     | CalculateTripCost of Domain.Itinerary
     | BookMessage of Domain.Itinerary
+    | BuyMessage of Domain.TicketType
 
 
 type State = Domain.Cart
@@ -16,6 +17,7 @@ let read (input : string) =
     match input with
     | TripCost (x,y) -> CalculateTripCost (x,y)
     | Book (x,y) -> BookMessage (x,y)
+    | Buy (x) -> BuyMessage (x)
     | Help -> HelpRequested
     | ParseFailed  -> NotParsable input
 
@@ -39,6 +41,9 @@ let evaluate (state : State) (msg : Message) =
     | BookMessage x ->
         let newState = Domain.Book x state
         (newState, "Booking completed")
+    | BuyMessage x ->
+        let newState = Domain.Buy x state
+        (newState, "Ticket added")
     | NotParsable originalInput ->
         let message =
             sprintf """"%s" was not parsable. %s"""  originalInput "You can get information about known commands by typing \"Help\""

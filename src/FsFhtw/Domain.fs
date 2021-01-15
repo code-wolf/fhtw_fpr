@@ -41,6 +41,7 @@ type PaymentMethod =
 type Message =
     | TripCost of string
     | Book
+    | Buy
 
 type Cart = { items : Ticket list }
 
@@ -79,6 +80,12 @@ let createTicket (x : TicketType) : Option<Ticket> =
 
 let Book (x : Itinerary) state : Cart =
     let ticket = createTicket (SingleTrip x)
+    match ticket with
+    | Some s -> { items = s :: state.items }
+    | None -> state
+
+let Buy (x : TicketType) state : Cart =
+    let ticket = createTicket (x)
     match ticket with
     | Some s -> { items = s :: state.items }
     | None -> state

@@ -25,3 +25,14 @@ Books a single ticket
 ### Example
 `Book Graz Innsbruck`
 
+
+## Buy
+Buy a ticket and add it to the cart
+
+### Synopsis
+`Buy [ticketType]
+### Example
+`Buy Day`
+`Buy Week`
+`Buy Month`
+`Buy Year`

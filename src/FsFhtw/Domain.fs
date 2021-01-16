@@ -90,12 +90,12 @@ let Buy (x : TicketType) state : Cart =
     | Some s -> { items = s :: state.items }
     | None -> state
 
-let rec printCart items =
-    match items with
-    | x::xs ->
-        printf "%A" x.Type
-        printCart xs
-    | [] -> []
+//let rec printCart items =
+//    match items with
+//    | x::xs ->
+//        printf "%A" x.Type
+//        printCart xs
+//    | [] -> []
 
 let init () : Cart =
     { items = [] }

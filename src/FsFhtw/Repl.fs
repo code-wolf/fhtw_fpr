@@ -49,18 +49,19 @@ let evaluate (state : State) (msg : Message) =
             sprintf """"%s" was not parsable. %s"""  originalInput "You can get information about known commands by typing \"Help\""
         (state, message)
 
-let rec printCart (x : Domain.Ticket list) =
-    match x with
-    | x::xs ->
-        printf "%A" x.Type
-        printCart xs
-    | [] -> ()
+//let rec printcart (x : domain.ticket list) =
+//    match x with
+//    | x::xs ->
+//        printf "%a" x.type
+//        printcart xs
+//    | [] -> ()
 
 
 let print (state : State, outputToPrint : string) =
     printfn "%s\n" outputToPrint
 
-    let str = List.fold(fun (acc : string) (elem : Domain.Ticket) -> acc + Domain.TicketTypeText elem.Type) "" state.items
+    printfn "Your cart:\n"
+    let str = List.fold(fun (acc : string) (elem : Domain.Ticket) -> acc + Domain.TicketTypeText elem.Type + "\t\t\t->\t" + (elem.TicketPrice |> Option.get ).ToString() + "€\n") "" state.items
 
     printf "%s\n" str
 

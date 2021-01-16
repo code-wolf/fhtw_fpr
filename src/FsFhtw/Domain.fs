@@ -38,10 +38,12 @@ type PaymentMethod =
     | Cash
     | CreditCard
 
+// For help text
 type Message =
     | TripCost of string
     | Book
     | Buy
+    | ClearCart
 
 type Cart = { items : Ticket list }
 
@@ -90,6 +92,12 @@ let Buy (x : TicketType) state : Cart =
     | Some s -> { items = s :: state.items }
     | None -> state
 
+let init () : Cart =
+    { items = [] }
+
+let ClearCart state : Cart =
+       init ()
+
 //let rec printCart items =
 //    match items with
 //    | x::xs ->
@@ -97,5 +105,3 @@ let Buy (x : TicketType) state : Cart =
 //        printCart xs
 //    | [] -> []
 
-let init () : Cart =
-    { items = [] }

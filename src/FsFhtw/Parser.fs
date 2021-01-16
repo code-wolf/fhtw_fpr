@@ -14,7 +14,10 @@ let fromString<'a> (s:string) =
 [<Literal>]
 let HelpLabel = "Help"
 
-let (|Help|ParseFailed|TripCost|Book|Buy|) (input : string) =
+[<Literal>]
+let ClearCartLabel = "ClearCart"
+
+let (|Help|ParseFailed|TripCost|Book|Buy|ClearCart|) (input : string) =
     let tryParseStation s0 s1 valueConstructor =
         let station0 = fromString<Domain.Station>(s0)
         let station1 = fromString<Domain.Station>(s1)
@@ -32,6 +35,7 @@ let (|Help|ParseFailed|TripCost|Book|Buy|) (input : string) =
     let parts = input.Split(' ') |> List.ofArray
     match parts with
     | [ verb ] when safeEquals verb HelpLabel -> Help
+    | [ verb ] when safeEquals verb ClearCartLabel -> ClearCart
     | [ verb; arg0; ] when safeEquals verb (nameof Domain.Buy) -> tryParseTicketType arg0 (fun t0  -> Buy (t0))
     | [ verb; arg0; arg1 ] when safeEquals verb (nameof Domain.TripCost) ->  tryParseStation arg0 arg1 (fun s0 s1 -> TripCost (s0,s1))
     | [ verb; arg0; arg1 ] when safeEquals verb (nameof Domain.Book) -> tryParseStation arg0 arg1 (fun s0 s1 -> Book (s0,s1))

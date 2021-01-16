@@ -10,6 +10,7 @@ Buy Train Tickets with this application.
 * Zurich
 
 # Supported CLI Commands
+
 ## TripCost
 Calculates the costs for a trip.
 ### Synopsis
@@ -36,3 +37,11 @@ Buy a ticket and add it to the cart
 `Buy Week`
 `Buy Month`
 `Buy Year`
+
+## ClearCart
+Removes all items in the cart
+
+### Synopsis
+`ClearCart`
+### Example
+`ClearCart`

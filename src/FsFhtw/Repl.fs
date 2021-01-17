@@ -10,6 +10,7 @@ type Message =
     | BookMessage of Domain.Itinerary
     | BuyMessage of Domain.TicketType
     | ClearCartMessage
+    | UndoMessage
 
 
 type State = Domain.Cart
@@ -20,6 +21,7 @@ let read (input : string) =
     | Book (x,y) -> BookMessage (x,y)
     | Buy (x) -> BuyMessage (x)
     | ClearCart -> ClearCartMessage
+    | Undo -> UndoMessage
     | Help -> HelpRequested
     | ParseFailed  -> NotParsable input
 
@@ -40,6 +42,9 @@ let evaluate (state : State) (msg : Message) =
     | ClearCartMessage ->
         let newState = Domain.ClearCart state
         (newState, "All items removed")
+    | UndoMessage ->
+        let newState = Domain.Undo state
+        (newState, "Removed last added item")
     | CalculateTripCost i ->
         let priceString = Domain.priceString i
         (state, priceString)

@@ -45,3 +45,11 @@ Removes all items in the cart
 `ClearCart`
 ### Example
 `ClearCart`
+
+## Undo
+Removes the latest added item in the cart
+
+### Synopsis
+`Undo`
+### Example
+`Undo`

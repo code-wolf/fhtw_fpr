@@ -17,7 +17,10 @@ let HelpLabel = "Help"
 [<Literal>]
 let ClearCartLabel = "ClearCart"
 
-let (|Help|ParseFailed|TripCost|Book|Buy|ClearCart|) (input : string) =
+[<Literal>]
+let UndoLabel = "Undo"
+
+let (|Help|ParseFailed|TripCost|Book|Buy|ClearCart|Undo|) (input : string) =
     let tryParseStation s0 s1 valueConstructor =
         let station0 = fromString<Domain.Station>(s0)
         let station1 = fromString<Domain.Station>(s1)
@@ -31,11 +34,11 @@ let (|Help|ParseFailed|TripCost|Book|Buy|ClearCart|) (input : string) =
         | None  -> ParseFailed
         | _ -> valueConstructor type0.Value
 
-
     let parts = input.Split(' ') |> List.ofArray
     match parts with
     | [ verb ] when safeEquals verb HelpLabel -> Help
     | [ verb ] when safeEquals verb ClearCartLabel -> ClearCart
+    | [ verb ] when safeEquals verb UndoLabel -> Undo
     | [ verb; arg0; ] when safeEquals verb (nameof Domain.Buy) -> tryParseTicketType arg0 (fun t0  -> Buy (t0))
     | [ verb; arg0; arg1 ] when safeEquals verb (nameof Domain.TripCost) ->  tryParseStation arg0 arg1 (fun s0 s1 -> TripCost (s0,s1))
     | [ verb; arg0; arg1 ] when safeEquals verb (nameof Domain.Book) -> tryParseStation arg0 arg1 (fun s0 s1 -> Book (s0,s1))

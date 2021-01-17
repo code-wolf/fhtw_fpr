@@ -44,6 +44,7 @@ type Message =
     | Book
     | Buy
     | ClearCart
+    | Undo
 
 type Cart = { items : Ticket list }
 
@@ -96,7 +97,14 @@ let init () : Cart =
     { items = [] }
 
 let ClearCart state : Cart =
-       init ()
+    init ()
+
+let Undo state : Cart =
+    try
+        { items = state.items.Tail }
+    with
+        | _ -> state
+    
 
 //let rec printCart items =
 //    match items with

@@ -11,6 +11,7 @@ type Message =
     | BuyMessage of Domain.TicketType
     | ClearCartMessage
     | UndoMessage
+    | GetTotalMessage
 
 
 type State = Domain.Cart
@@ -22,6 +23,7 @@ let read (input : string) =
     | Buy (x) -> BuyMessage (x)
     | ClearCart -> ClearCartMessage
     | Undo -> UndoMessage
+    | GetTotal -> GetTotalMessage
     | Help -> HelpRequested
     | ParseFailed  -> NotParsable input
 
@@ -45,6 +47,9 @@ let evaluate (state : State) (msg : Message) =
     | UndoMessage ->
         let newState = Domain.Undo state
         (newState, "Removed last added item")
+    | GetTotalMessage ->
+        let message = Domain.GetTotalString state
+        (state, message)
     | CalculateTripCost i ->
         let priceString = Domain.priceString i
         (state, priceString)
@@ -71,7 +76,7 @@ let print (state : State, outputToPrint : string) =
     printfn "%s\n" outputToPrint
 
     printfn "Your cart:\n"
-    let str = List.fold(fun (acc : string) (elem : Domain.Ticket) -> acc + Domain.TicketTypeText elem.Type + "\t\t\t->\t" + (elem.TicketPrice |> Option.get ).ToString() + "€\n") "" state.items
+    let str = List.fold(fun (acc : string) (elem : Domain.Ticket) -> acc + Domain.TicketTypeText elem.Type + "\t\t\t->\t" + (elem.TicketPrice |> Option.get).ToString() + "€\n") "" state.items
 
     printf "%s\n" str
 

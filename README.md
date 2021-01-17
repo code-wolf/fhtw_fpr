@@ -53,3 +53,11 @@ Removes the latest added item in the cart
 `Undo`
 ### Example
 `Undo`
+
+## GetTotal
+Calculates the total price of teh cart.
+
+### Synopsis
+`GetTotal`
+### Example
+`GetTotal`

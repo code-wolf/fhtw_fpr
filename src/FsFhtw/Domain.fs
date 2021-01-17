@@ -2,6 +2,7 @@ module Domain
 
 
 type Price = decimal
+
 type Error =
     | InvalidItinerary of string
 
@@ -45,6 +46,7 @@ type Message =
     | Buy
     | ClearCart
     | Undo
+    | GetTotal
 
 type Cart = { items : Ticket list }
 
@@ -104,7 +106,13 @@ let Undo state : Cart =
         { items = state.items.Tail }
     with
         | _ -> state
-    
+
+let GetTotalString (state : Cart) : string =
+    let sum = List.fold (fun acc elem -> 
+                            acc + decimal((elem.TicketPrice |> Option.get).ToString())
+                         ) 0m state.items
+    "Total: " + sum.ToString() + "€"
+  
 
 //let rec printCart items =
 //    match items with

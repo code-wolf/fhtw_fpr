@@ -12,6 +12,7 @@ type Message =
     | ClearCartMessage
     | UndoMessage
     | GetTotalMessage
+    | DisplayCart
 
 
 type State = Domain.Cart
@@ -21,11 +22,23 @@ let read (input : string) =
     | TripCost (x,y) -> CalculateTripCost (x,y)
     | Book (x,y) -> BookMessage (x,y)
     | Buy (x) -> BuyMessage (x)
+    | ShowCart -> DisplayCart
     | ClearCart -> ClearCartMessage
     | Undo -> UndoMessage
     | GetTotal -> GetTotalMessage
     | Help -> HelpRequested
     | ParseFailed  -> NotParsable input
+
+let print (state : State, outputToPrint : string) =
+    printfn "%s\n" outputToPrint
+    printfn "Your cart:"
+    let str = List.fold(fun (acc : string) (elem : Domain.Ticket) -> acc + Domain.TicketTypeText elem.Type + "\t\t\t->\t" + (elem.TicketPrice |> Option.get ).ToString() + " â‚¬\n") "" state.items
+    
+    if (String.IsNullOrEmpty str) then printf "\nYour cart is empty.\n"
+    printf "%s\n" str
+    printf "> "
+
+    state
 
 open Microsoft.FSharp.Reflection
 
@@ -59,6 +72,8 @@ let evaluate (state : State) (msg : Message) =
     | BuyMessage x ->
         let newState = Domain.Buy x state
         (newState, "Ticket added")
+    | DisplayCart ->
+        (state, "")
     | NotParsable originalInput ->
         let message =
             sprintf """"%s" was not parsable. %s"""  originalInput "You can get information about known commands by typing \"Help\""
@@ -70,20 +85,6 @@ let evaluate (state : State) (msg : Message) =
 //        printf "%a" x.type
 //        printcart xs
 //    | [] -> ()
-
-
-let print (state : State, outputToPrint : string) =
-    printfn "%s\n" outputToPrint
-
-    printfn "Your cart:\n"
-    let str = List.fold(fun (acc : string) (elem : Domain.Ticket) -> acc + Domain.TicketTypeText elem.Type + "\t\t\t->\t" + (elem.TicketPrice |> Option.get).ToString() + "€\n") "" state.items
-
-    printf "%s\n" str
-
-    printf "> "
-
-    state
-
 
 let rec loop (state : State) =
     Console.ReadLine()

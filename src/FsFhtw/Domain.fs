@@ -44,6 +44,7 @@ type Message =
     | TripCost of string
     | Book
     | Buy
+    | ShowCart
     | ClearCart
     | Undo
     | GetTotal

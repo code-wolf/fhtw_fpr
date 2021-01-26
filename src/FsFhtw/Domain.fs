@@ -1,5 +1,8 @@
 module Domain
 
+open System
+open Microsoft.FSharp.Reflection
+open Banking
 
 type Price = decimal
 
@@ -30,14 +33,9 @@ let TicketTypeText (t : TicketType) : string =
     | Month -> "Monatskarte"
     | Year -> "Jahreskarte"
 
-
 type Ticket =
     { Type : TicketType
       TicketPrice : Option<Price>}
-
-type PaymentMethod =
-    | Cash
-    | CreditCard
 
 // For help text
 type Message =
@@ -48,6 +46,7 @@ type Message =
     | ClearCart
     | Undo
     | GetTotal
+    | Pay
 
 type Cart = { items : Ticket list }
 
@@ -96,11 +95,11 @@ let Buy (x : TicketType) state : Cart =
     | Some s -> { items = s :: state.items }
     | None -> state
 
-let init () : Cart =
+let initCart () : Cart =
     { items = [] }
 
 let ClearCart state : Cart =
-    init ()
+    initCart ()
 
 let Undo state : Cart =
     try
@@ -108,12 +107,39 @@ let Undo state : Cart =
     with
         | _ -> state
 
+let sumCartItems (state : Cart) =
+    List.fold (fun acc elem -> 
+                acc + decimal((elem.TicketPrice |> Option.get).ToString())
+             ) 0m state.items
+
 let GetTotalString (state : Cart) : string =
-    let sum = List.fold (fun acc elem -> 
-                            acc + decimal((elem.TicketPrice |> Option.get).ToString())
-                         ) 0m state.items
+    let sum = sumCartItems state
     "Total: " + sum.ToString() + "€"
-  
+
+let Pay (state : Cart) =
+    let bankDetails = Banking.initBank ()
+    let sum = sumCartItems state
+
+    printf "You have to pay %s" (sum.ToString())
+    printf "€\n"
+    printfn "How do you want to pay?"
+
+    let options = FSharpType.GetUnionCases typeof<Banking.PaymentMethod>
+    for option in options do printfn "\t- %s" option.Name
+    let result = Banking.processPayment bankDetails
+    
+    match result with
+    | null -> 
+        printfn "All checks passed."
+        (initCart (), "Payment Process was successful.\n")
+    | "None" -> 
+        printfn "Not a valid input. Please try again. Idiot."
+        (state, "Payment process was interrupted.")
+    | _ -> 
+        printfn "%s Please try again. You moron." result
+        (state, "Payment process was interrupted.")
+        
+
 
 //let rec printCart items =
 //    match items with

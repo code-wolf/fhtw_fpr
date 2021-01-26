@@ -26,6 +26,9 @@ let GetTotalLabel = "GetTotal"
 [<Literal>]
 let ShowCartLabel = "ShowCart"
 
+[<Literal>]
+let PayLabel = "Pay"
+
 // Partial active patterns since multi-case active patterns are limited to 7 cases
 let (|GetTotal|_|) (input:string) =
     let parts = input.Split(' ') |> List.ofArray
@@ -43,6 +46,12 @@ let (|ClearCart|_|) (input:string) =
     let parts = input.Split(' ') |> List.ofArray
     match parts with
     | [ verb ] when safeEquals verb ClearCartLabel -> Some ClearCart
+    | _ -> None
+
+let (|Pay|_|) (input:string) =
+    let parts = input.Split(' ') |> List.ofArray
+    match parts with
+    | [ verb ] when safeEquals verb PayLabel -> Some Pay
     | _ -> None
 
 let (|Help|ParseFailed|TripCost|Book|Buy|ShowCart|) (input : string) =

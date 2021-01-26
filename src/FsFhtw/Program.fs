@@ -11,6 +11,6 @@ let main argv =
     for command in commands do printfn "\t- %s" command.Name
     printf "\n> "
 
-    let initialState = Domain.init ()
+    let initialState = Domain.initCart ()
     Repl.loop initialState
     0 // return an integer exit code

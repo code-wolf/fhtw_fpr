@@ -13,6 +13,7 @@ type Message =
     | UndoMessage
     | GetTotalMessage
     | DisplayCart
+    | Purchase
 
 
 type State = Domain.Cart
@@ -26,6 +27,7 @@ let read (input : string) =
     | ClearCart -> ClearCartMessage
     | Undo -> UndoMessage
     | GetTotal -> GetTotalMessage
+    | Pay -> Purchase
     | Help -> HelpRequested
     | ParseFailed  -> NotParsable input
 
@@ -74,6 +76,10 @@ let evaluate (state : State) (msg : Message) =
         (newState, "Ticket added")
     | DisplayCart ->
         (state, "")
+    | Purchase ->
+        match state.items with
+        | [] -> (state, "There is nothing in your cart.\n")
+        | _ ->  Domain.Pay state
     | NotParsable originalInput ->
         let message =
             sprintf """"%s" was not parsable. %s"""  originalInput "You can get information about known commands by typing \"Help\""
